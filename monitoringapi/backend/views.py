@@ -52,7 +52,7 @@ class ChatMessageViewSet(viewsets.ModelViewSet):
             # Extract the GPT response from the API response
             # gpt_response = chat_completion.choices[0].text.strip()
 
-            gpt_response=response.choices[0].message['content']
+            gpt_response = response.choices[0].message['content']
             # Create and save the ChatMessage instance with both the user_message and gpt_response
             serializer.save(user_message=user_message, gpt_response=gpt_response)
         else:
@@ -72,6 +72,13 @@ class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # permission_classes = [IsAuthenticated]
+
+
+class UserByIdView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    # permission_classes = [IsAuthenticated]
+    lookup_field = 'id'
 
 
 # Add or modify device for a user
